@@ -49,7 +49,17 @@ const shapes = [
 	}
 ]
 
-export const getShape = () => {
+let currentShape
+
+export const spawnNewShape = () => {
 	const rng = Math.floor(Math.random() * shapes.length)
-	return shapes[rng]
+	currentShape = shapes[rng]
+	// return shapes[rng]
+}
+
+export const getCurrentShape = () => {
+	if (currentShape == undefined) {
+		spawnNewShape()
+	}
+	return currentShape
 }
