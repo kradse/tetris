@@ -20,7 +20,7 @@ const stage = new PIXI.Container()
 const graphics = new PIXI.Graphics()
 var gameStatus = 'running'
 
-const fps = 16
+const fps = 60
 const interval = 1000 / fps
 
 let controller = {
@@ -81,8 +81,8 @@ const setup = () => {
 const AnimationLoop = (fps) => {
 	renderer.render(stage)
 
-	drawShape(getCurrentShape(), controller)
 	drawMap(graphics)
+	drawShape(getCurrentShape(), controller, graphics)
 
 	stage.addChild(graphics)
 

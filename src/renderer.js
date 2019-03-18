@@ -3,9 +3,18 @@ import { getMap, updateMap } from "./map.js"
 const colors = [0x000000, 0x0000FF, 0x00FF00, 0xFF0000, 0x00FFFF, 0xFFFF00, 0xFF00FF]
 
 let cursor = {x: 0, y: 0}
+let timer = 0
+let speed = 1000 / 60
 
-export const drawShape = (shape, controller) => {
-	updateMap(cursor, shape)
+export const drawShape = (shape, controller, graphics) => {
+	// updateMap(cursor, shape)
+	if (timer >= 1000) {
+		cursor.y++
+		timer = 0
+	}else{
+		timer += speed
+	}
+	// console.log(timer)
 
 	if (controller.up) {
 		cursor.y--
@@ -20,16 +29,17 @@ export const drawShape = (shape, controller) => {
 		cursor.x--
 	}
 
-	// graphics.beginFill(shape.color)
-	// let x = 0
-	// for (let i = 0; i < 3; i++) {
-	// 	for (let j = 0; j < 3; j++) {
-	// 		if (shape.style[x] == 1) {
-	// 			graphics.drawRect(j * 32, i * 32, 32, 32)
-	// 		}
-	// 		x++
-	// 	}
-	// }
+	graphics.beginFill(colors[shape.color])
+	// graphics.drawRect(100, 100, 32, 32)
+	let x = 0
+	for (let i = 0; i < 3; i++) {
+		for (let j = 0; j < 3; j++) {
+			if (shape.style[x] == 1) {
+				graphics.drawRect((cursor.x + j) * 32, (cursor.y + i) * 32, 32, 32)
+			}
+			x++
+		}
+	}
 }
 
 export const drawMap = (graphics) => {
