@@ -1,4 +1,6 @@
-import { mainLoop } from "./src/main.js"
+import { getShape } from "./src/shapes.js"
+import { drawShape, drawMap } from "./src/renderer.js"
+// import { mainLoop } from "./src/main.js"
 
 let type = "WebGL"
 if(!PIXI.utils.isWebGLSupported()){
@@ -14,43 +16,38 @@ let renderer = PIXI.autoDetectRenderer(384, 640, {
 
 document.getElementById('display').appendChild(renderer.view)
 
-let stage = new PIXI.Container()
+const stage = new PIXI.Container()
 
-const fps = 16
+const fps = 1
 const interval = 1000 / fps
 
 const setup = () => {
 	stage.interactive = true
 
-	/*sprite = new PIXI.Sprite(
-		PIXI.loader.resources['sprite'].texture
-		// PIXI.loader.resources['assets/sprite.png'].texture
-	)
-
-	sprite.interactive = true
-	sprite.scale.set(10, 10)
-	sprite.x = renderer.width * 0.5
-	sprite.y = renderer.height * 0.5
-	sprite.anchor.set(0.5, 0.5)
-
-	sprite.click = () => {
-		sprite.scale.x -= 0.1
-		sprite.scale.y -= 0.1
-	}
-
-	stage.addChild(sprite)*/
-
-	mainLoop(interval)
+	AnimationLoop(interval)
 }
 
+const graphics = new PIXI.Graphics()
+var gameStatus = 'running'
+
+/* Dont know how to get the anim function in a diffrent class yet */
+const AnimationLoop = (fps) => {
+	renderer.render(stage)
+
+	drawShape(getShape(), graphics)
+	drawMap(graphics)
+
+	stage.addChild(graphics)
 
 
-// const canvas = document.getElementById('screen')
-// canvas.width = 1367
-// canvas.height = 768
-// canvas.style = "border:1px solid black;"
-
-
-
+	if (gameStatus === 'running') {
+		setTimeout(() => { 
+			return AnimationLoop(fps)
+		}, fps)
+	}else{
+		console.log('Game Ended')
+		return
+	}
+}
 
 setup()
