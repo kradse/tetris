@@ -18,7 +18,9 @@ document.getElementById('display').appendChild(renderer.view)
 
 const stage = new PIXI.Container()
 const graphics = new PIXI.Graphics()
+// const texture = new PIXI.Texture()
 var gameStatus = 'running'
+let spriteSheet
 
 const fps = 60
 const interval = 1000 / fps
@@ -52,7 +54,11 @@ let controller = {
 				break;
 
 			case 'Escape':
-				gameStatus = 'Ended'
+				if (gameStatus == 'running') {
+					gameStatus = 'Ended'
+				}else{
+					gameStatus = 'running'
+				}
 				break;
 
 			case 'Space':
@@ -66,11 +72,36 @@ let controller = {
 	}
 }
 
+/*PIXI.loader
+	.add()
+	// .add('sprite', 'assets/sprite.png')
+	.add('./assets/spriteSheet.png')
+	.load(setup)
+
+let sprite*/
+
+
+
 const setup = () => {
+	spriteSheet = new PIXI.Sprite(
+		PIXI.loader.resources['spriteSheet'].texture
+		// PIXI.loader.resources['assets/sprite.png'].texture
+	)
+	/*let sprites = []
+	for (let i = 0; i < 8; i++) {
+		// sprites.push(new PIXI.Texture('spriteSheet', new PIXI.Rectangle(i * 32, 0, 32, 32)))
+		// const sprite = new PIXI.Texture('spriteSheet', new PIXI.Rectangle(i * 32, 0, 32, 32))
+	}*/
+
 	stage.interactive = true
 
 	window.addEventListener('keydown', controller.keyListener)
 	window.addEventListener('keyup', controller.keyListener)
+
+	// sprite = new PIXI.Sprite(
+	// 	PIXI.loader.resources['sprite'].texture
+	// 	// PIXI.loader.resources['assets/sprite.png'].texture
+	// )
 
 	AnimationLoop(interval)
 }
@@ -81,7 +112,7 @@ const setup = () => {
 const AnimationLoop = (fps) => {
 	renderer.render(stage)
 
-	drawMap(graphics)
+	drawMap(graphics, spriteSheet, stage)
 	drawShape(getCurrentShape(), controller, graphics)
 
 	stage.addChild(graphics)
@@ -97,4 +128,9 @@ const AnimationLoop = (fps) => {
 	}
 }
 
-setup()
+// setup()
+
+PIXI.loader
+	// .add('')
+	.add('spriteSheet','./assets/spriteSheet.png')
+	.load(setup)

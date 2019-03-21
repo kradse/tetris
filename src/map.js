@@ -33,7 +33,7 @@ export const updateMap = (cursor, shape) => {
 			if (shape.style[x] == 1) {
 				map[cursor.y + i][cursor.x + j] = shape.color
 			}else{
-				map[cursor.y + i][cursor.x + j] = 0
+				// map[cursor.y + i][cursor.x + j] = 0
 			}
 			x++
 		}
