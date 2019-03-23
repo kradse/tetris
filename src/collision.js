@@ -1,7 +1,8 @@
-import { updateMap } from "./map.js"
+import { updateMap, getMap } from "./map.js"
 import { spawnNewShape } from "./shapes.js"
 
-export const checkBorder = (cursor, shape, map) => {
+export const checkBorder = (cursor, shape) => {
+	const map = getMap()
 	// console.log(map)
 	// if (cursor.y + 3 == 1) {
 		
@@ -17,14 +18,14 @@ export const checkBorder = (cursor, shape, map) => {
 					updateMap(cursor, shape)
 					cursor.y = 0
 					spawnNewShape()
-					return 
+					return
 				}
 				if (map[cursor.y+y][cursor.x+x] > 0) {
 					// console.log('colliding on tile ', i)
 					updateMap(cursor, shape)
 					cursor.y = 0
 					spawnNewShape()
-					return 
+					return
 				}
 			}
 			i++
@@ -32,7 +33,7 @@ export const checkBorder = (cursor, shape, map) => {
 		i -= 6
 	}
 
-
+	return true
 
 	
 	// for (let i = 0; i < 3; i++) {

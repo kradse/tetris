@@ -1,5 +1,6 @@
 import { getCurrentShape, spawnNewShape } from "./src/shapes.js"
 import { drawShape, drawMap } from "./src/renderer.js"
+import { test, moveCursor } from "./src/controller.js"
 // import { mainLoop } from "./src/main.js"
 
 let type = "WebGL"
@@ -25,7 +26,7 @@ let spriteSheet
 const fps = 60
 const interval = 1000 / fps
 
-let controller = {
+/*let controller = {
 	up: false,
 	left: false,
 	down: false,
@@ -70,16 +71,31 @@ let controller = {
 				break;
 		}
 	}
-}
+}*/
 
-/*PIXI.loader
-	.add()
-	// .add('sprite', 'assets/sprite.png')
-	.add('./assets/spriteSheet.png')
-	.load(setup)
+/*const onClick = (event) => {
+	switch (event.key) {
+		case 'w':
+			test(event)
+			// movePlayer(0, -1)
+			break;
 
-let sprite*/
+		case 'd':
+			// movePlayer(1, 0)
+			break;
+	
+		case 's':
+			// movePlayer(0, 1)
+			break;
 
+		case 'a':
+			// movePlayer(-1, 0)
+			break;
+
+		default:
+			break;
+	}
+}*/
 
 
 const setup = () => {
@@ -87,26 +103,20 @@ const setup = () => {
 		PIXI.loader.resources['spriteSheet'].texture
 		// PIXI.loader.resources['assets/sprite.png'].texture
 	)
-	/*let sprites = []
-	for (let i = 0; i < 8; i++) {
-		// sprites.push(new PIXI.Texture('spriteSheet', new PIXI.Rectangle(i * 32, 0, 32, 32)))
-		// const sprite = new PIXI.Texture('spriteSheet', new PIXI.Rectangle(i * 32, 0, 32, 32))
-	}*/
 
 	stage.interactive = true
 
-	window.addEventListener('keydown', controller.keyListener)
-	window.addEventListener('keyup', controller.keyListener)
-
-	// sprite = new PIXI.Sprite(
-	// 	PIXI.loader.resources['sprite'].texture
-	// 	// PIXI.loader.resources['assets/sprite.png'].texture
-	// )
+	window.addEventListener("keydown", function onPress(event) {
+		moveCursor(event)
+		// onClick(event)
+	})
+	// window.addEventListener('keydown', moveCursor())
+	// window.addEventListener('keyup', controller.keyListener)
 
 	AnimationLoop(interval)
 }
 
-
+const controller = ''
 
 /* Dont know how to get the anim function in a diffrent class yet */
 const AnimationLoop = (fps) => {

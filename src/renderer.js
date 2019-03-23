@@ -1,13 +1,15 @@
 import { getMap, updateMap } from "./map.js"
-import { checkBorder } from "./collision.js";
+import { checkBorder } from "./collision.js"
+import { getCursor } from "./controller.js"
 
 const colors = [0x000000, 0x0000FF, 0x00FF00, 0xFF0000, 0x00FFFF, 0xFFFF00, 0xFF00FF, 0xFFFFFF]
 
-let cursor = {x: 0, y: 0}
+// let cursor = {x: 0, y: 0}
 let timer = 0
 let speed = 1000 / 60
 
 export const drawShape = (shape, controller, graphics) => {
+	let cursor = getCursor()
 	// updateMap(cursor, shape)
 	if (timer >= 1000) {
 		cursor.y++
@@ -18,20 +20,20 @@ export const drawShape = (shape, controller, graphics) => {
 	}
 	// console.log(timer)
 
-	if (controller.up) {
-		cursor.y--
-	}
-	if (controller.right) {
-		cursor.x++
-	}
-	if (controller.down) {
-		cursor.y++
-	}
-	if (controller.left) {
-		// if (cursor.x > 0) {
-		// }
-		cursor.x--
-	}
+	// if (controller.up) {
+	// 	cursor.y--
+	// }
+	// if (controller.right) {
+	// 	cursor.x++
+	// }
+	// if (controller.down) {
+	// 	cursor.y++
+	// }
+	// if (controller.left) {
+	// 	// if (cursor.x > 0) {
+	// 	// }
+	// 	cursor.x--
+	// }
 
 
 	graphics.beginFill(colors[shape.color])
