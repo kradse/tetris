@@ -1,4 +1,4 @@
-import { getCurrentShape } from "./shapes.js"
+import { getCurrentShape, rotateShape } from "./shapes.js"
 import { checkBorder } from "./collision.js";
 
 export const test = (btn) => {
@@ -28,7 +28,8 @@ export const moveCursor = (e) => {
 			break;
 
 		case 'ArrowUp':
-			cursor.y--
+			rotateShape()
+			// cursor.y--
 			break;
 
 		case 'ArrowRight':

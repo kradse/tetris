@@ -41,9 +41,16 @@ export const drawShape = (shape, controller, graphics) => {
 	let x = 0
 	for (let i = 0; i < 3; i++) {
 		for (let j = 0; j < 3; j++) {
-			if (shape.style[x] == 1) {
-				graphics.drawRect((cursor.x + j) * 32, (cursor.y + i) * 32, 32, 32)
+			try {
+				if (shape.style[x] == 1) {
+					graphics.drawRect((cursor.x + j) * 32, (cursor.y + i) * 32, 32, 32)
+				}
+			} catch (error) {
+				
+				console.log(x)
+				shape.style[x]
 			}
+			
 			x++
 		}
 	}

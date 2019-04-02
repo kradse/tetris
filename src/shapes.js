@@ -80,3 +80,18 @@ export const getCurrentShape = () => {
 	}
 	return currentShape
 }
+
+export const rotateShape = () => {
+	let newShape = []
+	newShape[0] = currentShape.style[2]
+	newShape[1] = currentShape.style[5]
+	newShape[2] = currentShape.style[8]
+	newShape[3] = currentShape.style[1]
+	newShape[4] = currentShape.style[4]
+	newShape[5] = currentShape.style[7]
+	newShape[6] = currentShape.style[0]
+	newShape[7] = currentShape.style[3]
+	newShape[8] = currentShape.style[6]
+
+	currentShape.style = newShape
+}

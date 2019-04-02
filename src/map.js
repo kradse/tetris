@@ -30,11 +30,20 @@ export const updateMap = (cursor, shape) => {
 	let x = 0
 	for (let i = 0; i < 3; i++) {
 		for (let j = 0; j < 3; j++) {
-			if (shape.style[x] == 1) {
-				map[cursor.y + i][cursor.x + j] = shape.color
-			}else{
-				// map[cursor.y + i][cursor.x + j] = 0
+			try {
+				if (shape.style[x] == 1) {
+					map[cursor.y + i][cursor.x + j] = shape.color
+				}
+			} catch (error) {
+				console.log({y: cursor.y, x: cursor.x, i, shape})
+				
 			}
+			// if (shape.style[x] == 1) {
+			// 	console.log({y: cursor.y, x: cursor.x, i, shape})
+			// 	map[cursor.y + i][cursor.x + j] = shape.color
+			// }else{
+			// 	// map[cursor.y + i][cursor.x + j] = 0
+			// }
 			x++
 		}
 	}
